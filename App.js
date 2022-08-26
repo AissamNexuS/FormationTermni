@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { View, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Signup from './src/screens/Signup/Signup';
@@ -12,45 +12,15 @@ import Notification from './src/screens/Notification/Notification';
 import AddPost from './src/screens/AddPost/AddPost';
 import Nocnx from './src/screens/NoCnx/Nocnx';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Ionic from 'react-native-vector-icons/Ionicons';
-import { FlatList, Platform } from 'react-native';
+import Table from './src/screens/Table/Table'
+import { Platform } from 'react-native';
 import PdfView from './src/screens/pdf/pdf';
 import NetInfo from '@react-native-community/netinfo';
 import { useDispatch, useSelector } from 'react-redux';
 import { setConnected } from './src/Redux/CnxSlice';
-import OneSignal from 'react-native-onesignal';
-import { ScaledSheet } from 'react-native-size-matters/extend';
-import Share from 'react-native-share';
 import ShareC from './src/screens/Share/Share'
 
 ////////////////////////////////////////////////:
-OneSignal.setAppId('f30f9440-4783-4a36-8b23-7cbbc153ee7e');
-
-OneSignal.promptForPushNotificationsWithUserResponse(response => {
-  console.log(' response   ===>:', response);
-});
-
-OneSignal.setNotificationWillShowInForegroundHandler(
-  notificationReceivedEvent => {
-    console.log(
-      'OneSignal: notification will show in foreground====>:',
-      notificationReceivedEvent,
-    );
-    let notification = notificationReceivedEvent.getNotification();
-
-    const data = notification.additionalData;
-    console.log('additionalData: ', data);
-    notificationReceivedEvent.complete(notification);
-  },
-);
-
-OneSignal.addSubscriptionObserver(event => {
-  console.log('ssssss ====>:', event);
-});
-
-OneSignal.setNotificationOpenedHandler(notification => {
-  console.log('notification opened=====>:', notification);
-});
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -58,7 +28,7 @@ const Tab = createBottomTabNavigator();
 const HomeName = 'Home';
 const MapName = 'Map';
 const NotificationName = 'Notification';
-
+const TableName = 'Table';
 
 export default function app() {
   const dispatch = useDispatch();
@@ -110,6 +80,12 @@ export default function app() {
               iconName = focused
                 ? require('./img/pngs/activeNot.png')
                 : require('./img/pngs/inactiveNot.png');
+            } if (rn === TableName) {
+              width = 30;
+              height = 30;
+              iconName = !focused
+                ? require('./img/pngs/Activetable.png')
+                : require('./img/pngs/unActivetable.png');
             }
 
             // You can return any component that you like here!
@@ -124,6 +100,7 @@ export default function app() {
           },
         })}>
         <Tab.Screen name="Home" component={Home} />
+        <Tab.Screen name="Table" component={Table} />
         <Tab.Screen name="Notification" component={Notification} />
         <Tab.Screen name="Map" component={Map} />
         <Tab.Screen

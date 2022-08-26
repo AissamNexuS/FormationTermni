@@ -19,11 +19,13 @@ const styles = ScaledSheet.create({
   iconPartage: {
     width: '26@s',
     height: '26@s',
+
   },
 
   touch: {
-    width: '25%',
+    width: '15%',
     height: '100%',
+    left: '-6%',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#E1FAF6',
